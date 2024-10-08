@@ -1,4 +1,5 @@
 import ctypes
+import time
 import unittest
 
 import Hash
@@ -27,9 +28,13 @@ class TestReadLine(unittest.TestCase):
         while self.hash.HashStatus(identifier.value, ctypes.byref(run_status)) == 0 and run_status.value:
             pass
         code: int = self.hash.HashReadNextLogLine(hash_content)
+        self.check_content(hash_content.value)
+        while self.hash.HashReadNextLogLine(hash_content) == 0:
+            self.check_content(hash_content.value)
+            # self.hash.HashFree(hash_content)
+            time.sleep(0.1)
         self.hash.HashStop(identifier)
-        self.assertEqual({Error.HASH_ERROR_OK}, code,
-                         f"Error code should be HASH_ERROR_LOG_EMPTY {Error.HASH_ERROR_OK} but was {code}")
+        self.assertEqual(Error.HASH_ERROR_OK.value, code, f"Error code should be {Error.HASH_ERROR_OK} but was {code}")
 
     def testLogEmpty(self):
         identifier = ctypes.c_size_t()
@@ -42,26 +47,29 @@ class TestReadLine(unittest.TestCase):
             pass
         code: int = self.hash.HashReadNextLogLine(hash_content)
         self.hash.HashStop(identifier)
-        self.assertEqual({Error.HASH_ERROR_LOG_EMPTY}, code,
-                         f"Error code should be HASH_ERROR_LOG_EMPTY {Error.HASH_ERROR_LOG_EMPTY} but was {code}")
+        self.assertEqual(Error.HASH_ERROR_LOG_EMPTY.value, code,
+                         f"Error code should be {Error.HASH_ERROR_LOG_EMPTY} but was {code}")
 
     def testReadErrorArgumentNull(self):
         self.hash.HashInit()
         code: int = self.hash.HashReadNextLogLine(None)
-        self.assertEqual(Error.HASH_ERROR_ARGUMENT_NULL, code,
-                         f"Error code should be HASH_ERROR_ARGUMENT_NULL {Error.HASH_ERROR_ARGUMENT_NULL} but was {code}")
+        self.assertEqual(Error.HASH_ERROR_ARGUMENT_NULL.value, code,
+                         f"Error code should be {Error.HASH_ERROR_ARGUMENT_NULL} but was {code}")
 
     def testErrorNotInitialized(self):
         hash_content = ctypes.c_char_p()
         code: int = self.hash.HashReadNextLogLine(ctypes.byref(hash_content))
-        self.assertEqual(Error.HASH_ERROR_NOT_INITIALIZED, code,
-                         f"Error code should be HASH_ERROR_NOT_INITIALIZED {Error.HASH_ERROR_NOT_INITIALIZED} but was {code}")
+        self.assertEqual(Error.HASH_ERROR_NOT_INITIALIZED.value, code,
+                         f"Error code should be {Error.HASH_ERROR_NOT_INITIALIZED} but was {code}")
 
     # It is not clear how ARGUMENT_INVALID should look like
     # def testErrorInvalidArgument(self):
     #    hash_content = ctypes.c_char_p()
     #    code: int = self.hash.HashReadNextLogLine(ctypes.byref(hash_content))
-    #    self.assertEqual(Error.HASH_ERROR_ARGUMENT_INVALID, code, f"Error code should be HASH_ERROR_ARGUMENT_INVALID {Error.HASH_ERROR_ARGUMENT_INVALID} but was {code}")
+    #    self.assertEqual(Error.HASH_ERROR_ARGUMENT_INVALID.value, code, f"Error code should be {Error.HASH_ERROR_ARGUMENT_INVALID} but was {code}")
+
+    def check_content(self, hash_content):
+        print(hash_content)
 
 
 if __name__ == '__main__':

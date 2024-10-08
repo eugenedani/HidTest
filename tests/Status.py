@@ -27,26 +27,25 @@ class TestStatus(unittest.TestCase):
         while self.hash.HashStatus(identifier.value, ctypes.byref(running)) == 0 and running.value:
             pass
         self.hash.HashStop(identifier.value)
-        self.assertEqual(Error.HASH_ERROR_OK, code,
-                         f"Error code should be HASH_ERROR_OK {Error.HASH_ERROR_OK} but was {code}")
+        self.assertEqual(Error.HASH_ERROR_OK.value, code, f"Error code should be {Error.HASH_ERROR_OK} but was {code}")
         self.assertTrue(run_status.value, "Status should be true")
 
     def testStatusErrorArgumentNull(self):
         self.hash.HashInit()
         code: int = self.hash.HashStatus(1, None)
-        self.assertEqual(Error.HASH_ERROR_ARGUMENT_NULL, code,
-                         f"Error code should be HASH_ERROR_ARGUMENT_NULL {Error.HASH_ERROR_ARGUMENT_NULL} but was {code}")
+        self.assertEqual(Error.HASH_ERROR_ARGUMENT_NULL.value, code,
+                         f"Error code should be {Error.HASH_ERROR_ARGUMENT_NULL} but was {code}")
 
     def testErrorNotInitialized(self):
         code: int = self.hash.HashStatus(1, ctypes.byref(running))
-        self.assertEqual(Error.HASH_ERROR_NOT_INITIALIZED, code,
-                         f"Error code should be HASH_ERROR_NOT_INITIALIZED {Error.HASH_ERROR_NOT_INITIALIZED} but was {code}")
+        self.assertEqual(Error.HASH_ERROR_NOT_INITIALIZED.value, code,
+                         f"Error code should be {Error.HASH_ERROR_NOT_INITIALIZED} but was {code}")
 
     # It is not clear how ARGUMENT_INVALID should look like
     # def testErrorInvalidArgument(self):
     #    self.hash.HashInit()
     #    code: int = self.hash.HashStatus(1, ctypes.byref(running))
-    #    self.assertEqual(Error.HASH_ERROR_ARGUMENT_INVALID, code, f"Error code should be HASH_ERROR_ARGUMENT_INVALID {Error.HASH_ERROR_ARGUMENT_INVALID} but was {code}")
+    #    self.assertEqual(Error.HASH_ERROR_ARGUMENT_INVALID.value, code, f"Error code should be {Error.HASH_ERROR_ARGUMENT_INVALID} but was {code}")
 
 
 if __name__ == '__main__':
