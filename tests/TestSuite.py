@@ -1,9 +1,10 @@
 import unittest
-import tests.InitializeTerminate
-import tests.Directory
-import tests.Status
-import tests.ReadLine
 
+import tests.Directory
+import tests.InitializeTerminate
+import tests.ReadLine
+import tests.Status
+import tests.Stop
 
 
 def suite():
@@ -13,6 +14,7 @@ def suite():
     hash_suite.addTest(loader.loadTestsFromModule(tests.Directory))
     hash_suite.addTest(loader.loadTestsFromModule(tests.Status))
     hash_suite.addTest(loader.loadTestsFromModule(tests.ReadLine))
+    hash_suite.addTest(loader.loadTestsFromModule(tests.Stop))
     return hash_suite
 
 
