@@ -1,0 +1,1 @@
+Files hash.dll and hash.lib should be in this folder
