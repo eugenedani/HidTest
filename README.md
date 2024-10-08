@@ -132,6 +132,8 @@ Return code of the method is HASH_ERROR_NOT_INITIALIZED 8
 
 Medium
 
+___
+
 ### 6 HashDirectory or HashReadNextLogLine returns wrong MD5 checksum
 
 #### Steps to Reproduce
@@ -163,3 +165,37 @@ hash.lib has MD5 = 722b232defd4e31157bc4549ecc1594
 
 Critical
 
+___
+
+### 7 HashTerminate did not clean hash
+
+I'm not sure if it is an issue or not. It is not clear from description, but I have added it here just in case
+
+#### Steps to Reproduce
+
+1. Use directory 2 files (hash.dll and hash.lib)
+2. Call
+
+         HashInit();
+         HashDirectory(path_to_2_files_folder, &identifier);
+         while HashStatus(identifier, &run_status) == 0 && run_status;
+         while HashReadNextLogLine(&line) == 0:
+         {   
+           std::cout << line << std::endl;
+           std::this_thread::sleep_for(std::chrono::milliseconds(100));
+         }
+        HashStop(identifier)
+        HashTerminate()
+3. Call the same code in a row in one file
+
+### Expected Result
+
+the second attempt will have 2 files
+
+### Actual Result
+
+the second attempt has 4 files
+
+### Severity/Priority
+
+Critical
