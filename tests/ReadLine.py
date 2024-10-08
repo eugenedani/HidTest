@@ -67,6 +67,8 @@ class TestReadLine(unittest.TestCase):
         while self.hash.HashStatus(identifier.value, ctypes.byref(run_status)) == 0 and run_status.value:
             pass
         self.hash.HashReadNextLogLine(hash_content)
+        self.hash.HashFree(hash_content)
+        time.sleep(0.1)
         code: int = self.hash.HashReadNextLogLine(hash_content)
         self.hash.HashStop(identifier)
         self.assertEqual(Error.HASH_ERROR_LOG_EMPTY.value, code,

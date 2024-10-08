@@ -18,7 +18,7 @@ class TestStop(unittest.TestCase):
         """Call after every test case."""
         self.hash.HashTerminate()
 
-    def testStatus(self):
+    def testStop(self):
         identifier = ctypes.c_size_t()
         b_path = ".".encode("utf-8")
         run_status = ctypes.c_bool()
