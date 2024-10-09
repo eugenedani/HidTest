@@ -17,6 +17,7 @@ class TestDirectory(unittest.TestCase):
         """Call after every test case."""
         self.hash.HashStop(identifier.value)
         self.hash.HashTerminate()
+        Hash.unload(self.hash)
 
     def testHashDirectory(self):
         b_path = ".".encode("utf-8")

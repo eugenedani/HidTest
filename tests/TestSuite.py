@@ -12,9 +12,9 @@ def suite():
     loader = unittest.TestLoader()
     hash_suite = unittest.TestSuite()
     hash_suite.addTest(loader.loadTestsFromModule(tests.InitializeTerminate))
-    hash_suite.addTest(loader.loadTestsFromModule(tests.ReadLine))
     hash_suite.addTest(loader.loadTestsFromModule(tests.Directory))
     hash_suite.addTest(loader.loadTestsFromModule(tests.Status))
+    hash_suite.addTest(loader.loadTestsFromModule(tests.ReadLine))
     hash_suite.addTest(loader.loadTestsFromModule(tests.Stop))
     hash_suite.addTest(loader.loadTestsFromModule(tests.Free))
     return hash_suite

@@ -12,6 +12,7 @@ class TestInitializeTerminate(unittest.TestCase):
     def tearDown(self):
         """Call after every test case."""
         self.hash.HashTerminate()
+        Hash.unload(self.hash)
 
     def testInitializeError(self):
         self.hash.HashInit()
