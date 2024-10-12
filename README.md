@@ -31,7 +31,7 @@ Medium
 
 ___
 
-### 2 HashStop method  ini issue
+### 2 HashStop method "not initialized" issue
 
 #### Steps to Reproduce
 
@@ -39,7 +39,7 @@ ___
 
 ### Expected Result
 
-Return code of the method is HASH_ERROR_NOT_INITIALIZED 8
+Return code of the method is HASH_ERROR_NOT_INITIALIZED 7
 
 ### Actual Result
 
@@ -86,7 +86,7 @@ Critical
 #### Steps to Reproduce
 
 1. Use directory with one file
-   2. Call
+2. Call
 
             HashInit();
             HashDirectory(path_to_one_file_folder, &identifier);
@@ -96,11 +96,11 @@ Critical
 
 ### Expected Result
 
-Return code of the method is HASH_ERROR_GENERAL 1
+Return code of the method is HASH_ERROR_LOG_EMPTY 4
 
 ### Actual Result
 
-Return code of the method is HASH_ERROR_NOT_INITIALIZED 8
+Return code of the method is HASH_ERROR_GENERAL 1
 
 ### Severity/Priority
 
@@ -122,11 +122,11 @@ Medium
 
 ### Expected Result
 
-Return code of the method is HASH_ERROR_GENERAL 1
+Return code of the method is HASH_ERROR_LOG_EMPTY 4
 
 ### Actual Result
 
-Return code of the method is HASH_ERROR_NOT_INITIALIZED 8
+Return code of the method is HASH_ERROR_GENERAL 1
 
 ### Severity/Priority
 
